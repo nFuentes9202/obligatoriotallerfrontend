@@ -1,14 +1,24 @@
 import './App.css';
 import LoginPage from '../Pages/LoginPage/LoginPage';
-
+import DashboardPage from '../Pages/Dashboard/DashboardPage';
+import "bootstrap-css-only";
+import {useState} from 'react';
 
 function App() {
+  const [userLogged, setUserLogged] = useState(null);
+
+  const _loginUser = (userData) =>{
+
+    setUserLogged(userData);
+
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <LoginPage/>
-      </header>
-    </div>
+    <>
+
+    {userLogged ? <DashboardPage/> : <LoginPage onLogin={_loginUser}/>}
+
+    </>
   );
 }
 
