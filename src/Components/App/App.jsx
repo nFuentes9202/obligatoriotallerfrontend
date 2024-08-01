@@ -1,5 +1,6 @@
 import './App.css';
 import LoginPage from '../Pages/LoginPage/LoginPage';
+import RegisterPage from '../Pages/RegisterPage/RegisterPage';
 import DashboardPage from '../Pages/Dashboard/DashboardPage';
 import "bootstrap-css-only";
 import {useState} from 'react';
@@ -13,10 +14,17 @@ function App() {
 
   }
 
+  const _registerUser = (userData) =>{
+
+    setUserLogged(userData);
+
+  }
+
   return (
     <>
 
-    {userLogged ? <DashboardPage/> : <LoginPage onLogin={_loginUser}/>}
+    //{userLogged ? <DashboardPage/> : <LoginPage onLogin={_loginUser}/>}
+    {userLogged ? <DashboardPage/> : <RegisterPage onRegister={_registerUser}/>}
 
     </>
   );
