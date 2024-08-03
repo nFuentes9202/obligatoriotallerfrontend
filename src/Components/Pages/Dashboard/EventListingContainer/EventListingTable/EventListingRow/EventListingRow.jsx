@@ -1,11 +1,14 @@
-const EventListingRow = ({icono, categoria, detalle, fechaHora}) => {
+const EventListingRow = ({icono, idCategoria, detalle, fecha}) => {
+    // agregar como prop id, userLogged, onDelete
     return(
         <tr>
             <td>{icono}</td>
-            <td>{categoria}</td>
+            <td>{idCategoria}</td>
             <td>{detalle}</td>
-            <td>{fechaHora}</td>
-            <td>Boton</td>
+            <td>{fecha}</td>
+            <td>
+                <button className="btn btn-danger">Eliminar</button>
+            </td>
         </tr>
     );
 };

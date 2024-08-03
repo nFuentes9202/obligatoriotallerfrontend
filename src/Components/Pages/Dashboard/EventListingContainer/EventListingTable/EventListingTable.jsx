@@ -1,6 +1,7 @@
 import EventListingRow from "./EventListingRow";
 
 const EventListingTable = ({events}) => {
+    //agregar como prop userLogged, onDelete
     return(
         <table className="table table-hover">
             <thead>
@@ -13,14 +14,14 @@ const EventListingTable = ({events}) => {
                 </tr>
             </thead>
             <tbody>
-                {events.map(({icono, categoria, detalle, fechaHora}) => (
+                {events.map(({icono, idCategoria, detalle, fecha}) => (
                     <EventListingRow
                         icono={icono}
-                        categoria={categoria}
+                        idCategoria={idCategoria}
                         detalle={detalle}
-                        fechaHora={fechaHora}
+                        fecha={fecha}
                     />
-                ))};
+                ))}
             </tbody>
         </table>
     );
