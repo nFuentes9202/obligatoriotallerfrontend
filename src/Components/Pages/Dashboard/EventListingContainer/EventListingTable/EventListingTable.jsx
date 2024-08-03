@@ -1,7 +1,6 @@
 import EventListingRow from "./EventListingRow";
 
-const EventListingTable = ({events}) => {
-    //agregar como prop userLogged, onDelete
+const EventListingTable = ({idEvento, userLogged, onDelete, events}) => {
     return(
         <table className="table table-hover">
             <thead>
@@ -20,6 +19,9 @@ const EventListingTable = ({events}) => {
                         idCategoria={idCategoria}
                         detalle={detalle}
                         fecha={fecha}
+                        idEvento={idEvento}
+                        userLogged={userLogged}
+                        onDelete={onDelete}
                     />
                 ))}
             </tbody>

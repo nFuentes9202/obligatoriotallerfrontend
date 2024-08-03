@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import EventListingContainer from "./EventListingContainer/EventListingContainer";
 
 
-const DashboardPage = () => {
-// falta pasarle como prop el onLogout, userLogged
+const DashboardPage = (userLogged) => {
+///// falta pasarle como prop el onLogout del header
     const [events, setEvents] = useState([]);
     const [filterEvents, setFilterEvents] = useState([]);
 
@@ -72,7 +72,14 @@ const DashboardPage = () => {
     */
     /////
     //const events = EventListingAPI;
+
+    //Borrado de eventos
+    const _onDelete = (idEvento) => {
+      const newEventsList = events.filter((unEvent) => unEvent.id !== idEvento);
+      setEvents(newEventsList);  
+    }
     
+    //Filtrado de eventos
     const _onFilter = (selected) =>{
         if(selected === "0") {
             setFilterEvents(events);
@@ -82,12 +89,15 @@ const DashboardPage = () => {
             alert("Se mostraran los eventos anteriores");
         }
     };
+
+    
     return(
         <div className="container-fluid">
             <EventListingContainer
             events={filterEvents}
             onFilter={_onFilter}
-            //falta pasarle userLogged, onDelete
+            userLogged={userLogged}
+            onDelete={_onDelete}
             />
         </div>
     );

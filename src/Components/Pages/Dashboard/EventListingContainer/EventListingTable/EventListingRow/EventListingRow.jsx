@@ -1,5 +1,14 @@
-const EventListingRow = ({icono, idCategoria, detalle, fecha}) => {
-    // agregar como prop id, userLogged, onDelete
+import { DeleteEventAPI } from "../../../../../../Services/api";
+
+const EventListingRow = ({idEvento, userLogged, onDelete, icono, idCategoria, detalle, fecha}) => {
+    const _onDelete = async () => {
+        try{
+            await DeleteEventAPI(idEvento, userLogged.id);
+            onDelete(idEvento);
+        } catch(error){
+            console.log("Error delete EvenetListingRow")
+        }
+    };
     return(
         <tr>
             <td>{icono}</td>
@@ -7,20 +16,11 @@ const EventListingRow = ({icono, idCategoria, detalle, fecha}) => {
             <td>{detalle}</td>
             <td>{fecha}</td>
             <td>
-                <button className="btn btn-danger">Eliminar</button>
+                <button className="btn btn-danger" 
+                onClick={_onDelete}>Eliminar</button>
             </td>
         </tr>
     );
 };
 
 export default EventListingRow;
-
-/* Ejemplo de row
-<tr>
-            <th scope="row">IconoComida</th>
-            <td>Comida</td>
-            <td>1ra comida del dia</td>
-            <td>2024-07-31 08:02:11</td>
-            <td>@</td>
-</tr>
- */
