@@ -1,6 +1,5 @@
 import "./App.css";
 import "bootstrap-css-only";
-
 import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import DashboardPage from "../Pages/Dashboard/DashboardPage";
@@ -22,6 +21,11 @@ function App() {
     setToLocalStorage("userData", userData);
     navigateTo("/dashboard");
   };
+  const _logout = () => {
+    setUserLogged(null);
+    removeFromLocalStorage("userData");
+  };
+
 
   const _registerUser = (userData) => {
     //setUserLogged(userData);
@@ -40,7 +44,7 @@ function App() {
           path="/dashboard"
           element={
             <PrivateRoute userLogged={userLogged}>
-              <DashboardPage userLogged = {userLogged}/>
+              <DashboardPage userLogged = {userLogged} onLogout= {_logout}/>
             </PrivateRoute>
           }
         />

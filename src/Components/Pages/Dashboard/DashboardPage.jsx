@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import EventListingContainer from "./EventListingContainer/EventListingContainer";
+import EventsReportsContainer from "./EventsReportsContainer/EventsReportsContainer";
+import Header from "./Header/Header"
 
 
-const DashboardPage = (userLogged) => {
+const DashboardPage = ({userLogged, onLogout}) => {
 ///// falta pasarle como prop el onLogout del header
     const [events, setEvents] = useState([]);
     const [filterEvents, setFilterEvents] = useState([]);
@@ -93,6 +95,10 @@ const DashboardPage = (userLogged) => {
     
     return(
         <div className="container-fluid">
+            <Header onLogout={onLogout}/>
+            <EventsReportsContainer
+            events={filterEvents}
+            />
             <EventListingContainer
             events={filterEvents}
             onFilter={_onFilter}
