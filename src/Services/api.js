@@ -11,7 +11,7 @@ const EventListingAPI = async () => {
                 },
             }
         );
-        if (response.status == 200){
+        if (response.status === 200){
             const data = await response.json();
             return data;
         } else{

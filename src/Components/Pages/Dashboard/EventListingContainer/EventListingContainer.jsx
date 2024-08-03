@@ -2,6 +2,7 @@ import EventListingTable from "./EventListingTable";
 import EventListingFilter from "./EventListingFilter";
 
 const EventListingContainer = ({ events, onFilter }) => {
+   
   return (
     <div className="row my-3">
       <div className="col-12">

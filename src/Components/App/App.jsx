@@ -17,7 +17,9 @@ function App() {
   };
 
   return (
+
     <>
+      <DashboardPage/>
       {userLogged 
         ? <DashboardPage /> 
         : <LoginPage onLogin={_loginUser} />}
