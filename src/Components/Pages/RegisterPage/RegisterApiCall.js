@@ -24,7 +24,7 @@ const registerUserApiCall = async (inputUsername, inputPassword, selectDepartame
     else{
 
         return Promise.reject({
-            message: response.status === 401 ? "Las credenciales son invalidas, reintente nuevamente" : "Ha ocurrido un error",
+            message: response.status === 409 ? "Ya existe un usuario con ese nombre, intente otro nombre" : "Ha ocurrido un error",
             status: response.status,
         });
     }
@@ -107,6 +107,7 @@ const getCiudades = async (idDepartamento) => {
 
     } catch (error) {
        
+
         return Promise.reject({
 
             message: error.message || "Ocurrió un error, por favor intente nuevamente",
