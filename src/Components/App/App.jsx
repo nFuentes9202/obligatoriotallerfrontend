@@ -1,25 +1,33 @@
 import "./App.css";
+import "bootstrap-css-only";
+
 import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import DashboardPage from "../Pages/Dashboard/DashboardPage";
-import "bootstrap-css-only";
 import { useState } from "react";
+import { 
+  setToLocalStorage,
+  getFromLocalStorage,
+  removeFromLocalStorage } from "../../Helpers/localStorage";
 
 function App() {
-  const [userLogged, setUserLogged] = useState(null);
+  const userData = getFromLocalStorage("userData");
+  const [userLogged, setUserLogged] = useState(userData);
 
   const _loginUser = (userData) => {
     setUserLogged(userData);
+    setToLocalStorage("userData", userData);
   };
 
   const _registerUser = (userData) => {
     setUserLogged(userData);
+    setToLocalStorage("userData", userData);
   };
 
   return (
 
     <>
-      <DashboardPage/>
+      <DashboardPage userLogged = {userLogged}/>
       {userLogged 
         ? <DashboardPage /> 
         : <LoginPage onLogin={_loginUser} />}
