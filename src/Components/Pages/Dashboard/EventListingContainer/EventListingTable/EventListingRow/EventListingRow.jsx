@@ -1,16 +1,16 @@
-const AllEventsRow = ({props}) => {
+const EventListingRow = ({icono, categoria, detalle, fechaHora}) => {
     return(
         <tr>
-            <th scope="row">{props.icono}</th>
-            <td>{props.categoria}</td>
-            <td>{props.detalle}</td>
-            <td>{props.fechaHora}</td>
+            <td>{icono}</td>
+            <td>{categoria}</td>
+            <td>{detalle}</td>
+            <td>{fechaHora}</td>
             <td>Boton</td>
         </tr>
     );
 };
 
-export default AllEventsRow;
+export default EventListingRow;
 
 /* Ejemplo de row
 <tr>
