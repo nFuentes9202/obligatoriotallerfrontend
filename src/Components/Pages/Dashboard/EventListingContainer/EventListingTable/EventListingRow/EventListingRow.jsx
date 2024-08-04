@@ -14,6 +14,7 @@ const EventListingRow = ({id, userLogged, onDelete, icono, idCategoria, detalle,
     
     return(
         <tr>
+            <td>{id}</td>
             <td>{icono}</td>
             <td>{idCategoria}</td>
             <td>{detalle}</td>

@@ -1,7 +1,7 @@
 import EventListingTable from "./EventListingTable";
 import EventListingFilter from "./EventListingFilter";
 
-const EventListingContainer = ({ userLogged, onDelete, events, onFilter }) => {
+const EventListingContainer = ({ userLogged, onDelete, events, onFilter}) => {
   return (
     <div className="row my-3">
       <div className="col-12">
