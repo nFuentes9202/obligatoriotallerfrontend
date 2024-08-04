@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import EventListingContainer from "./EventListingContainer/EventListingContainer";
 import EventsReportsContainer from "./EventsReportsContainer/EventsReportsContainer";
 import Header from "./Header/Header"
+import AddEventContainer from "./AddEventContainer";
 
 
 
@@ -95,6 +96,7 @@ const DashboardPage = ({userLogged, onLogout}) => {
             <EventsReportsContainer
             events={filterEvents}
             />
+            <AddEventContainer/>
             <EventListingContainer
             events={filterEvents}
             onFilter={_onFilter}
