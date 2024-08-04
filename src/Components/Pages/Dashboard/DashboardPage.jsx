@@ -4,11 +4,11 @@ import EventsReportsContainer from "./EventsReportsContainer/EventsReportsContai
 import Header from "./Header/Header"
 
 
+
 const DashboardPage = ({userLogged, onLogout}) => {
-///// falta pasarle como prop el onLogout del header
     const [events, setEvents] = useState([]);
     const [filterEvents, setFilterEvents] = useState([]);
-
+    
     useEffect(() => {
         fetch(
             "https://babytracker.develotion.com/eventos.php?idUsuario=" + userLogged.id,
@@ -22,7 +22,6 @@ const DashboardPage = ({userLogged, onLogout}) => {
             }
         )
             .then((response)=> {
-                console.log("response en el 1er then", response);
                 if(response.status === 200){
                     return response.json();
                 } else{ 
@@ -33,7 +32,6 @@ const DashboardPage = ({userLogged, onLogout}) => {
                 }
             })
             .then((data) => {
-                console.log("data en el 2do then",data)
                 setEvents(data.eventos);
                 setFilterEvents(data.eventos);
             })
@@ -72,23 +70,21 @@ const DashboardPage = ({userLogged, onLogout}) => {
         }
     };
     */
-    /////
-    //const events = EventListingAPI;
 
-    //Borrado de eventos
     const _onDelete = (idEvento) => {
       const newEventsList = events.filter((unEvent) => unEvent.id !== idEvento);
       setEvents(newEventsList);  
     }
     
-    //Filtrado de eventos
     const _onFilter = (selected) =>{
         if(selected === "0") {
             setFilterEvents(events);
         } else if( selected === "1"){
             alert("Se mostrarias los eventos de hoy");
+            setFilterEvents(events.filter((unEvent) => unEvent.fecha === Date.now));
         } else{
             alert("Se mostraran los eventos anteriores");
+            setFilterEvents(events.filter((unEvent) => unEvent.fecha < Date.now))
         }
     };
 

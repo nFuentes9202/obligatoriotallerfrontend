@@ -1,3 +1,4 @@
+/*
 const EventListingAPI = async () => {
     try {
         const response = await fetch(
@@ -26,7 +27,7 @@ const EventListingAPI = async () => {
         });
     }
 };
-
+*/ 
 const DeleteEventAPI = async (idEvento, idUsuario, apiKey) => {
     try {
         const response = await fetch(
@@ -57,4 +58,4 @@ const DeleteEventAPI = async (idEvento, idUsuario, apiKey) => {
     }
 };
 
-export {EventListingAPI, DeleteEventAPI};
+export { DeleteEventAPI};
