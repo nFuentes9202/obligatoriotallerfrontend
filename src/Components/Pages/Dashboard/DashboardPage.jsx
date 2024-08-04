@@ -36,7 +36,7 @@ const DashboardPage = ({userLogged, onLogout}) => {
                 setFilterEvents(data.eventos);
             })
             .catch((e) => console.error(e));
-    }, []);
+    });
 
     /*
     /////llamada a api
@@ -71,8 +71,8 @@ const DashboardPage = ({userLogged, onLogout}) => {
     };
     */
 
-    const _onDelete = (idEvento) => {
-      const newEventsList = events.filter((unEvent) => unEvent.id !== idEvento);
+    const _onDelete = (id) => {
+      const newEventsList = events.filter((unEvent) => unEvent.id !== id);
       setEvents(newEventsList);  
     }
     

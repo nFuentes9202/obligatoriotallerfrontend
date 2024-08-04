@@ -1,14 +1,17 @@
 import { DeleteEventAPI } from "../../../../../../Services/api";
 
-const EventListingRow = ({idEvento, userLogged, onDelete, icono, idCategoria, detalle, fecha}) => {
+const EventListingRow = ({id, userLogged, onDelete, icono, idCategoria, detalle, fecha}) => {
     const _onDelete = async () => {
         try{
-            await DeleteEventAPI(idEvento, userLogged.id);
-            onDelete(idEvento);
+            await DeleteEventAPI(id, userLogged.id, userLogged.apiKey);
+            onDelete(id);
+            console.log("idEvento:",id,"IDusuario:", userLogged.id);
+            
         } catch(error){
             console.log("Error delete EvenetListingRow")
         }
     };
+    
     return(
         <tr>
             <td>{icono}</td>

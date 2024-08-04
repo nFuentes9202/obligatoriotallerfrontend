@@ -28,10 +28,10 @@ const EventListingAPI = async () => {
     }
 };
 */ 
-const DeleteEventAPI = async (idEvento, idUsuario, apiKey) => {
+const DeleteEventAPI = async (id, idUsuario, apiKey) => {
     try {
         const response = await fetch(
-            "https://babytracker.develotion.com/eventos.php?idEvento=" + idEvento,
+            "https://babytracker.develotion.com/eventos.php?idEvento=" + id,
             {
                 method: "DELETE",
                 headers: {
@@ -44,7 +44,8 @@ const DeleteEventAPI = async (idEvento, idUsuario, apiKey) => {
         );
         if (response.status === 200){
             const data = await response.json();
-            return data.mensaje;
+            console.log(data.mensaje);
+            //return data.mensaje;
         } else{
             return Promise.reject({
                 message: "Ha ocurrido un error",
@@ -58,4 +59,34 @@ const DeleteEventAPI = async (idEvento, idUsuario, apiKey) => {
     }
 };
 
-export { DeleteEventAPI};
+///////
+const NombreCategoriasAPI = async (userLogged ) => {
+    try {
+        const response = await fetch(
+            "https://babytracker.develotion.com//categorias.php",
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "apikey" : userLogged.apiKey,
+                    "iduser" : userLogged.idUsuario
+                },
+            }
+        );
+        if (response.status === 200){
+            const data = await response.json();
+            return data;
+        } else{
+            return Promise.reject({
+                message: "Ha ocurrido un error",
+                status: response.status,
+            });
+        }
+    } catch (error) {
+        return Promise.reject({
+            message: "Ha ocurrido un error",
+        });
+    }
+};
+
+export { DeleteEventAPI, NombreCategoriasAPI };
