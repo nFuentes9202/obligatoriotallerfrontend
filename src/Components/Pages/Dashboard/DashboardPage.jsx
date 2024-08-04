@@ -11,13 +11,13 @@ const DashboardPage = ({userLogged, onLogout}) => {
 
     useEffect(() => {
         fetch(
-            "https://babytracker.develotion.com/eventos.php?idUsuario=3859",
+            "https://babytracker.develotion.com/eventos.php?idUsuario=" + userLogged.id,
             {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "apikey" : "7d314199e4d7ab751d8d6f55680106f5",
-                    "iduser" : "3859"
+                    "apikey" : userLogged.apiKey,
+                    "iduser" : userLogged.id,
                 },
             }
         )

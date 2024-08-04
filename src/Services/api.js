@@ -27,16 +27,16 @@ const EventListingAPI = async () => {
     }
 };
 
-const DeleteEventAPI = async (idEvento, idUsuario) => {
+const DeleteEventAPI = async (idEvento, idUsuario, apiKey) => {
     try {
         const response = await fetch(
-            "https://babytracker.develotion.com/eventos.php?idEvento=2016",
+            "https://babytracker.develotion.com/eventos.php?idEvento=" + idEvento,
             {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    "apikey" : "7d314199e4d7ab751d8d6f55680106f5",
-                    "iduser" : "3859"
+                    "apikey" : apiKey,
+                    "iduser" : idUsuario
                 },
             
             }
