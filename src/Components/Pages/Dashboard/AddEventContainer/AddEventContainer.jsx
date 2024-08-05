@@ -1,37 +1,36 @@
-import {useRef} from "react";
+import { useRef } from "react";
+import Button from "../../../UI/Button/Button";
 
 const AddEventContainer = (userLogged) => {
-    const selectCategoriaRef = useRef();
-    const inputFechaRef = useRef();
-    const inputDetalleRef = useRef();
+  const selectCategoriaRef = useRef();
+  const inputFechaRef = useRef();
+  const inputDetalleRef = useRef();
 
-    return (
-     <>
-        <form className="form-inline">
-        <div className="form-group mb-2">
-          <label className="sr-only">Categoria:</label>
-          <select className="form-control" ref={selectRef}>
-            <option value="0">Todos</option>
-            <option value="1">Eventos de hoy</option>
-            <option value="2">Eventos anteriores</option>
-          </select>
-        </div>
-        <div className="form-group mb-2">
-          <label className="sr-only">Fecha:</label>
-          <input type="date" className="form-control" ref={inputToDoRef} />
-        </div>
-        <div className="form-group mb-2">
-          <label className="sr-only">Detalle:</label>
-          <input type="text" className="form-control" ref={inputToDoRef} />
-        </div>
-        <div className="form-group mb-2">
-          <Button cta={"Agregar ToDo"} onHandleClick={_onAddToDo} />
-        </div>
-        <div>
-            
-        </div>
-      </form>
-    </>)
-}
+  return (
+    <>
+          <form className="card">
+            <h5>Agregar evento</h5>
+            <div className="form-row align-items-center">
+              <div className="col-auto">
+                <label className="sr-only" htmlFor="slcCategorias" id="slcCategorias">Categoria:</label>
+                <input type="text" className="form-control mb-3" id="slcCategorias" ref={selectCategoriaRef}/>
+              </div>
+              <div className="col-auto">
+                <label className="sr-only" htmlFor="fechaEvento" id="fechaEvento">Fecha:</label>
+                <input type="date" className="form-control mb-3" id="fechaEvento" ref={inputFechaRef}/>
+              </div>
+              <div className="col-auto">
+                <label className="sr-only" htmlFor="detalleEvento" id="detalleEvento">Detalle:</label>
+                <input type="text" className="form-control mb-3" id="detalleEvento" ref={inputDetalleRef}/>
+              </div>
+              
+              <div className="col-auto">
+                <Button message={"Agregar evento"} className="mb-3"/>
+              </div>
+            </div>
+          </form>
+    </>
+  );
+};
 
 export default AddEventContainer;
