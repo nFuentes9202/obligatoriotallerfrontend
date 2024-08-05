@@ -12,15 +12,15 @@ const AddEventContainer = (userLogged) => {
             <h5>Agregar evento</h5>
             <div className="form-row align-items-center">
               <div className="col-auto">
-                <label className="sr-only" htmlFor="slcCategorias" id="slcCategorias">Categoria:</label>
+                <label className="label" htmlFor="slcCategorias" id="slcCategorias">Categoria:</label>
                 <input type="text" className="form-control mb-3" id="slcCategorias" ref={selectCategoriaRef}/>
               </div>
               <div className="col-auto">
-                <label className="sr-only" htmlFor="fechaEvento" id="fechaEvento">Fecha:</label>
+                <label className="label" htmlFor="fechaEvento" id="fechaEvento">Fecha:</label>
                 <input type="date" className="form-control mb-3" id="fechaEvento" ref={inputFechaRef}/>
               </div>
               <div className="col-auto">
-                <label className="sr-only" htmlFor="detalleEvento" id="detalleEvento">Detalle:</label>
+                <label className="label" htmlFor="detalleEvento" id="detalleEvento">Detalle:</label>
                 <input type="text" className="form-control mb-3" id="detalleEvento" ref={inputDetalleRef}/>
               </div>
               
