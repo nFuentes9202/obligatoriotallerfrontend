@@ -37,7 +37,7 @@ const DashboardPage = ({userLogged, onLogout}) => {
                 setFilterEvents(data.eventos);
             })
             .catch((e) => console.error(e));
-    });
+    }, []);
 
     /*
     /////llamada a api
@@ -89,7 +89,6 @@ const DashboardPage = ({userLogged, onLogout}) => {
         }
     };
 
-    
     return(
         <div className="container-fluid">
             <Header onLogout={onLogout}/>

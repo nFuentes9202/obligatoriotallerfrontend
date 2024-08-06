@@ -60,7 +60,8 @@ const DeleteEventAPI = async (id, idUsuario, apiKey) => {
 };
 
 ///////
-const NombreCategoriasAPI = async (userLogged ) => {
+/*
+const GetCategoriasAPI = async (userLogged ) => {
     try {
         const response = await fetch(
             "https://babytracker.develotion.com//categorias.php",
@@ -88,5 +89,5 @@ const NombreCategoriasAPI = async (userLogged ) => {
         });
     }
 };
-
-export { DeleteEventAPI, NombreCategoriasAPI };
+*/
+export { DeleteEventAPI };
