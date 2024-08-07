@@ -10,6 +10,24 @@ const DashboardPage = ({userLogged, onLogout}) => {
     const [events, setEvents] = useState([]);
     const [filterEvents, setFilterEvents] = useState([]);
     
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+    
+        return `${year}-${month}-${day}`;
+    }
+
+    function formatDateFromString(dateString) {
+
+        const datePart = dateString.split(" ")[0];
+        
+        const [year, month, day] = datePart.split("-");
+    
+        return `${year}-${month}-${day}`;
+    }
+    
+
     useEffect(() => {
         fetch(
             "https://babytracker.develotion.com/eventos.php?idUsuario=" + userLogged.id,
@@ -37,7 +55,7 @@ const DashboardPage = ({userLogged, onLogout}) => {
                 setFilterEvents(data.eventos);
             })
             .catch((e) => console.error(e));
-    }, []);
+    });
 
     /*
     /////llamada a api
@@ -82,10 +100,10 @@ const DashboardPage = ({userLogged, onLogout}) => {
             setFilterEvents(events);
         } else if( selected === "1"){
             alert("Se mostrarias los eventos de hoy");
-            setFilterEvents(events.filter((unEvent) => unEvent.fecha === Date.now));
+            setFilterEvents(events.filter((unEvent) => formatDateFromString(unEvent.fecha) === formatDate(new Date())));
         } else{
             alert("Se mostraran los eventos anteriores");
-            setFilterEvents(events.filter((unEvent) => unEvent.fecha < Date.now))
+            setFilterEvents(events.filter((unEvent) => formatDateFromString(unEvent.fecha) < formatDate(new Date())))
         }
     };
 
