@@ -17,7 +17,7 @@ const AddEventContainer = (userLogged) => {
               </div>
               <div className="col-auto">
                 <label className="label" htmlFor="fechaEvento" id="fechaEvento">Fecha:</label>
-                <input type="date" className="form-control mb-3" id="fechaEvento" ref={inputFechaRef}/>
+                <input type="datetime-local" className="form-control mb-3" id="fechaEvento" ref={inputFechaRef}/>
               </div>
               <div className="col-auto">
                 <label className="label" htmlFor="detalleEvento" id="detalleEvento">Detalle:</label>

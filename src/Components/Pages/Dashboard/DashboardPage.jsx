@@ -3,12 +3,16 @@ import EventListingContainer from "./EventListingContainer/EventListingContainer
 import EventsReportsContainer from "./EventsReportsContainer/EventsReportsContainer";
 import Header from "./Header/Header"
 import AddEventContainer from "./AddEventContainer";
-
+import { CategoriasAPICall } from "./CategoriasAPICall";
+import Alert from "../../UI/Alert/Alert";
 
 
 const DashboardPage = ({userLogged, onLogout}) => {
     const [events, setEvents] = useState([]);
+    const [categorias, setCategorias] = useState([]);
     const [filterEvents, setFilterEvents] = useState([]);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertClass, setAlertClass] = useState("");
     
     function formatDate(date) {
         const year = date.getFullYear();
@@ -27,6 +31,15 @@ const DashboardPage = ({userLogged, onLogout}) => {
         return `${year}-${month}-${day}`;
     }
     
+    const loadCategorias = async () => {
+        try {
+            const categoriasData = await CategoriasAPICall(userLogged.apiKey, userLogged.id);
+            setCategorias(categoriasData.categorias);
+        } catch (e) {
+            setAlertMessage(e.message || "Hubo un error al cargar las categorías, recargue la página");
+            setAlertClass("alert-danger");
+        }
+    };
 
     useEffect(() => {
         fetch(
@@ -54,8 +67,12 @@ const DashboardPage = ({userLogged, onLogout}) => {
                 setEvents(data.eventos);
                 setFilterEvents(data.eventos);
             })
-            .catch((e) => console.error(e));
-    });
+            .catch((e) => e.status === 401 ? onLogout() : console.error(e) );
+            
+            loadCategorias();
+
+        }, []);
+    
 
     /*
     /////llamada a api
@@ -92,14 +109,14 @@ const DashboardPage = ({userLogged, onLogout}) => {
 
     const _onDelete = (id) => {
       const newEventsList = events.filter((unEvent) => unEvent.id !== id);
-      setEvents(newEventsList);  
+      setEvents(newEventsList);
+      setFilterEvents(newEventsList);
     }
     
     const _onFilter = (selected) =>{
         if(selected === "0") {
             setFilterEvents(events);
         } else if( selected === "1"){
-            alert("Se mostrarias los eventos de hoy");
             setFilterEvents(events.filter((unEvent) => formatDateFromString(unEvent.fecha) === formatDate(new Date())));
         } else{
             alert("Se mostraran los eventos anteriores");
@@ -119,7 +136,9 @@ const DashboardPage = ({userLogged, onLogout}) => {
             onFilter={_onFilter}
             userLogged={userLogged}
             onDelete={_onDelete}
+            categorias={categorias}
             />
+             {alertMessage !== "" ? <Alert message={alertMessage} classColor={alertClass}/> : ""}
         </div>
     );
 };

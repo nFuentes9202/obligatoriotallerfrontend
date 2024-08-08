@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { DeleteEventAPI } from "../../../../../../Services/api";
 
-const EventListingRow = ({id, userLogged, onDelete, icono, idCategoria, detalle, fecha}) => {
+const EventListingRow = ({id, userLogged, onDelete, icono, nombreCategoria, detalle, fecha}) => {
     const [categorias, setCategorias] = useState([]);
     //const [nombreCategoria, setNombreCategoria] = useState("");
 
@@ -17,7 +17,7 @@ const EventListingRow = ({id, userLogged, onDelete, icono, idCategoria, detalle,
     };
     
     useEffect(() => {
-        const GetCategoriasAPI = async () => {
+        /*const GetCategoriasAPI = async () => {
             try {
                 console.log("holi");
 
@@ -48,30 +48,14 @@ const EventListingRow = ({id, userLogged, onDelete, icono, idCategoria, detalle,
                     message: "Ha ocurrido un error",
                 });
             }
-        };
-
-        /*
-        const _getCategoria = async () => {
-            try {
-                const categoriasData = await GetCategoriasAPI(userLogged);
-                setCategorias(categoriasData.categorias);
-
-                //const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
-                //return unaCategoria.tipo;
-            } catch (error) {
-                console.log("Error en useEffect getCategorias");
-            }
-
-        };
-        _getCategoria();
-        */
+        };*/
     }, []);
-    
+    /*
     const _nombreCategoria = () => {
-        console.log("categorias",categorias);
         const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
         return unaCategoria;
     };
+    */
     /*
         const _findCategoryById = () => {
             const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
@@ -81,8 +65,8 @@ const EventListingRow = ({id, userLogged, onDelete, icono, idCategoria, detalle,
     return(
         <tr>
             <td>{id}</td>
-            <td>{icono}</td>
-            <td>{_nombreCategoria()}</td>
+            <td><img src={`https://babytracker.develotion.com/imgs/${icono}.png`} alt={nombreCategoria}/></td>
+            <td>{nombreCategoria}</td>
             <td>{detalle}</td>
             <td>{fecha}</td>
             <td>

@@ -1,6 +1,17 @@
 import EventListingRow from "./EventListingRow";
 
-const EventListingTable = ({id, userLogged, onDelete, events}) => {
+const EventListingTable = ({id, userLogged, onDelete, events, categorias}) => {
+
+    const _nombreCategoria = (idCategoria) => {
+        const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
+        return unaCategoria ? unaCategoria.tipo : 'Sin categoria';
+    };
+
+    const _imagenCategoria = (idCategoria) => {
+        const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
+        return unaCategoria ? unaCategoria.imagen : '1';
+    };
+
     return(
         <table className="table table-hover">
             <thead>
@@ -14,11 +25,11 @@ const EventListingTable = ({id, userLogged, onDelete, events}) => {
                 </tr>
             </thead>
             <tbody>
-                {events.map(({id, icono, idCategoria, detalle, fecha}) => (
+                {events.map(({id, imagen, idCategoria, detalle, fecha}) => (
                     <EventListingRow
                         id={id}
-                        icono={icono}
-                        idCategoria={idCategoria}
+                        icono={_imagenCategoria(idCategoria)}
+                        nombreCategoria={_nombreCategoria(idCategoria)}
                         detalle={detalle}
                         fecha={fecha}
                         userLogged={userLogged}
