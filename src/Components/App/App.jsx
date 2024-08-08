@@ -1,5 +1,6 @@
 import "./App.css";
 import "bootstrap-css-only";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import DashboardPage from "../Pages/Dashboard/DashboardPage";
