@@ -1,42 +1,73 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getFromLocalStorage, removeFromLocalStorage, setToLocalStorage } from "../../Helpers/localStorage";
 
-const userData = getFromLocalStorage("userData");
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
 
-const userSlice = createSlice({
+    return `${year}-${month}-${day}`;
+}
 
-    name: "userSlice",
+function formatDateFromString(dateString) {
+
+    const datePart = dateString.split(" ")[0];
+    
+    const [year, month, day] = datePart.split("-");
+
+    return `${year}-${month}-${day}`;
+}
+
+const eventsSlice = createSlice({
+
+    name: "eventsSlice",
     initialState: {
-        userLogged: userData,
+        events: [],
+        filterEvents: [],
     },
+
+    
     reducers: {
 
-        loginUser: (state,action) => {
-            
+        loadInitialEvents: (state, action) => {
+
             const {payload} = action;
-            state.userLogged = payload;
-            setToLocalStorage("userData", payload);
-        },
 
-        logoutUser: (state) => {
-
-            state.userLogged = null;
-            removeFromLocalStorage("userData");
+            state.events = payload;
+            state.filterEvents = payload;
 
         },
 
-        registerUser: (state, action) => {
-
-            const {payload} = action;
-            state.userLogged = payload;
-            setToLocalStorage("userData", payload);
-
-        }
+        onDelete: (state, action) => {
+            const { payload } = action;
+            const newEventList = state.events.filter((evt) => evt.id !== payload);
+            state.events = newEventList;
+            state.filterEvents = newEventList;
+        },
+        onAddTodo: (state, action) => {
+            const { payload } = action;
+            state.events = [...state.events, payload];
+            state.filterEvents = state.events;
+        },
+        onFilter: (state, action) => {
+            const { payload } = action;
+            if (payload === "0") {
+              state.filterEvents = state.events;
+            } else if (payload === "1") {
+              const newFilterList = state.events.filter((evt) =>  formatDateFromString(evt.fecha) === formatDate(new Date()));
+              state.filterEvents = newFilterList;
+            } else {
+              const newFilterList = state.events.filter((evt) => formatDateFromString(evt.fecha) < formatDate(new Date()));
+              state.filterEvents = newFilterList;
+            }
+        },
 
     },
 
 });
 
-export const {loginUser, logoutUser, registerUser} = userSlice.actions;
-export const selectUserLogged = (state) => state.userSlice.userLogged;
-export default userSlice.reducer;
+export const {loadInitialEvents, onDelete, onFilter} = eventsSlice.actions;
+
+export const selectEvents = (state) => state.eventsSlice.events;
+export const selectFilteredEvents = (state) => state.eventsSlice.filterEvents;
+
+export default eventsSlice.reducer;

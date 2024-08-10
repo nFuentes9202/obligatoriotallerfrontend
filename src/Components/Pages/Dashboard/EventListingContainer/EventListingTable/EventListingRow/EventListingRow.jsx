@@ -1,67 +1,23 @@
-import { useEffect, useState } from "react";
 import { DeleteEventAPI } from "../../../../../../Services/api";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserLogged } from "../../../../../../app/slices/userSlice";
+import { onDelete } from "../../../../../../app/slices/eventsSlice";
 
-const EventListingRow = ({id, userLogged, onDelete, icono, nombreCategoria, detalle, fecha}) => {
-    const [categorias, setCategorias] = useState([]);
-    //const [nombreCategoria, setNombreCategoria] = useState("");
+const EventListingRow = ({id, icono, nombreCategoria, detalle, fecha}) => {
+    const dispatcher = useDispatch();
+
+    const userLogged = useSelector(selectUserLogged);
 
     const _onDelete = async () => {
         try{
             await DeleteEventAPI(id, userLogged.id, userLogged.apiKey);
-            onDelete(id);
-            console.log("idEvento:",id,"IDusuario:", userLogged.id);
+            dispatcher(onDelete(id));
             
         } catch(error){
-            console.log("Error delete EvenetListingRow")
+            
         }
     };
     
-    useEffect(() => {
-        /*const GetCategoriasAPI = async () => {
-            try {
-                console.log("holi");
-
-                const response = await fetch(
-                    "https://babytracker.develotion.com//categorias.php",
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "apikey" : userLogged.apiKey,
-                            "iduser" : userLogged.idUsuario
-                        },
-                    }
-                );
-                if (response.status === 200){
-                    const data = await response.json();
-                    console.log("array data fetch:",data);
-                    return data;
-                    
-                } else{
-                    return Promise.reject({
-                        message: "Ha ocurrido un error",
-                        status: response.status,
-                    });
-                }
-            } catch (error) {
-                return Promise.reject({
-                    message: "Ha ocurrido un error",
-                });
-            }
-        };*/
-    }, []);
-    /*
-    const _nombreCategoria = () => {
-        const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
-        return unaCategoria;
-    };
-    */
-    /*
-        const _findCategoryById = () => {
-            const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
-            return unaCategoria.tipo;
-        };*/
-        
     return(
         <tr>
             <td>{id}</td>

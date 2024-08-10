@@ -1,10 +1,15 @@
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { onFilter } from "../../../../../app/slices/eventsSlice";
 
-const EventListingFilter = ({ onFilter }) => {
+
+const EventListingFilter = () => {
   const selectRef = useRef();
+  const dispatcher = useDispatch();
   
   const _onHandleChange = () => {
-    onFilter(selectRef.current.value);
+    dispatcher(onFilter(selectRef.current.value));
+    //onFilter(selectRef.current.value);
   };
 
   return (

@@ -1,5 +1,11 @@
+import { selectEvents } from "../../../../app/slices/eventsSlice";
 import EventsReportCard from "./EventReportCard/EventReportCard";
-const EventsReportsContainer = ({ events }) => {
+import {useSelector } from "react-redux";
+
+const EventsReportsContainer = () => {
+
+  const events = useSelector(selectEvents);
+
   const _fechaActual = new Date();
   const _getBiberones = () => events.filter((evt) => evt.idCategoria === 35).length;
 

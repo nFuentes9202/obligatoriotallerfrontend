@@ -1,6 +1,15 @@
+import { selectCategorias } from "../../../../../app/slices/categoriasSlice";
+import { selectFilteredEvents } from "../../../../../app/slices/eventsSlice";
 import EventListingRow from "./EventListingRow";
+import {useSelector } from "react-redux";
 
-const EventListingTable = ({id, userLogged, onDelete, events, categorias}) => {
+
+const EventListingTable = () => {
+
+
+
+    const categorias = useSelector(selectCategorias) || [];
+    const events = useSelector(selectFilteredEvents) || [];
 
     const _nombreCategoria = (idCategoria) => {
         const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
@@ -25,15 +34,13 @@ const EventListingTable = ({id, userLogged, onDelete, events, categorias}) => {
                 </tr>
             </thead>
             <tbody>
-                {events.map(({id, imagen, idCategoria, detalle, fecha}) => (
+                {events.map(({id, idCategoria, detalle, fecha}) => (
                     <EventListingRow
                         id={id}
                         icono={_imagenCategoria(idCategoria)}
                         nombreCategoria={_nombreCategoria(idCategoria)}
                         detalle={detalle}
                         fecha={fecha}
-                        userLogged={userLogged}
-                        onDelete={onDelete}
                     />
                 ))}
             </tbody>

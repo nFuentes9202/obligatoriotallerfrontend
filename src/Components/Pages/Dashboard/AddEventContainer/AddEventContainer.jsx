@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import Button from "../../../UI/Button/Button";
 
-const AddEventContainer = (userLogged) => {
+const AddEventContainer = () => {
   const selectCategoriaRef = useRef();
   const inputFechaRef = useRef();
   const inputDetalleRef = useRef();

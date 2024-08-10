@@ -32,6 +32,7 @@ const userSlice = createSlice({
             setToLocalStorage("userData", payload);
 
         }
+        
 
     },
 
