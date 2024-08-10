@@ -2,13 +2,18 @@ import {useRef, useState, useEffect} from 'react';
 import './RegisterPage.css';
 import Alert from "../../UI/Alert/Alert"
 import { registerUserApiCall, getCiudades, getDepartamentos } from './RegisterApiCall';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../../app/slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 
-const RegisterPage = ({onRegister}) => {
+const RegisterPage = () => {
 
     const inputUserNameRef = useRef();
     const inputPassRef = useRef();
     const selectDepartamentosRef = useRef();
     const selectCiudadRef = useRef();
+    const dispatcher = useDispatch();
+    const navigateTo = useNavigate();
 
     const [alertMessage, setAlertMessage] = useState("");
     const [alertClass, setAlertClass] = useState("");
@@ -97,7 +102,9 @@ const RegisterPage = ({onRegister}) => {
             let idCiudad = selectCiudadRef.current.value;
             const data = await registerUserApiCall(username, password, idDepartamento, idCiudad)
 
-            onRegister(data);
+            //onRegister(data);
+            dispatcher(registerUser(data));
+            navigateTo("/dashboard");
             
           } catch (e) {
             

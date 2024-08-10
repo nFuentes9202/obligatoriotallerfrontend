@@ -1,7 +1,17 @@
 import './Header.css'
 import LogoutButton from "../../../UI/LogoutButton/LogoutButton";
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../../../app/slices/userSlice';
 
-const Header = ({onLogout}) => {
+const Header = () => {
+
+const dispatcher = useDispatch();
+
+const _onLogout = () => {
+
+  dispatcher(logoutUser());
+
+}
 
 return(
 <header className="row">
@@ -14,7 +24,7 @@ return(
         <LogoutButton
             message={"Logout"}
             classColor={"btn-light"}
-            onHandleClick={onLogout}
+            onHandleClick={_onLogout}
           />
         </div>
       </div>

@@ -1,7 +1,8 @@
 import { Navigate } from "react-router-dom"
+import { useSelector} from "react-redux";
 
-const PrivateRoute = ({userLogged, children}) => {
-
+const PrivateRoute = ({children}) => {
+    const userLogged = useSelector((store) => store.userSlice.userLogged)
     if(!userLogged){
         return <Navigate to={"/login"} replace={true}/>
     }

@@ -5,15 +5,19 @@ import Header from "./Header/Header"
 import AddEventContainer from "./AddEventContainer";
 import { CategoriasAPICall } from "./CategoriasAPICall";
 import Alert from "../../UI/Alert/Alert";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser, selectUserLogged } from "../../../app/slices/userSlice";
 
 
-const DashboardPage = ({userLogged, onLogout}) => {
+const DashboardPage = () => {
     const [events, setEvents] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const [filterEvents, setFilterEvents] = useState([]);
     const [alertMessage, setAlertMessage] = useState("");
     const [alertClass, setAlertClass] = useState("");
-    
+    const dispatcher = useDispatch();
+
+    const userLogged = useSelector(selectUserLogged);
     function formatDate(date) {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -67,7 +71,8 @@ const DashboardPage = ({userLogged, onLogout}) => {
                 setEvents(data.eventos);
                 setFilterEvents(data.eventos);
             })
-            .catch((e) => e.status === 401 ? onLogout() : console.error(e) );
+            .catch((e) => e.status === 401 ? dispatcher(logoutUser()) : setAlertMessage(e.message || "Hubo un error al traer los eventos, refresque e intente nuevamente"),
+            setAlertClass("alert-danger") );
             
             loadCategorias();
 
@@ -126,7 +131,7 @@ const DashboardPage = ({userLogged, onLogout}) => {
 
     return(
         <div className="container-fluid">
-            <Header onLogout={onLogout}/>
+            <Header/>
             <EventsReportsContainer
             events={filterEvents}
             />
@@ -134,7 +139,6 @@ const DashboardPage = ({userLogged, onLogout}) => {
             <EventListingContainer
             events={filterEvents}
             onFilter={_onFilter}
-            userLogged={userLogged}
             onDelete={_onDelete}
             categorias={categorias}
             />
