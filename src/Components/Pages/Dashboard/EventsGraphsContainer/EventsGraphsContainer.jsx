@@ -8,25 +8,31 @@ const EventsGraphsContainer = () => {
   const categorias = useSelector(selectCategorias) || [];
 
   const getAmountPerCategory = events.reduce((contador, evento) => {
-      const { idCategoria } = evento;
-      contador[idCategoria] = (contador[idCategoria] || 0) + 1;
-      return contador;
-    }, {});
+    const { idCategoria } = evento;
+    contador[idCategoria] = (contador[idCategoria] || 0) + 1;
+    return contador;
+  }, {});
 
-  console.log("metodo obtener cant por categoria", getAmountPerCategory);
-  
+  const arrayAmountPerCategory = Object.entries(getAmountPerCategory).map(
+    ([idCategoria, cantidad]) => ({
+      idCategoria: Number(idCategoria),
+      cantidad,
+    })
+  );
+
+  const quantities = arrayAmountPerCategory.map((obj) => {
+    return obj.cantidad;
+  });
+
+
   const _nombreCategoria = (idCategoria) => {
     const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
     return unaCategoria ? unaCategoria.tipo : "Sin categoria";
   };
 
-  const getCategoryName = events.map(evento => {
-    return _nombreCategoria(evento.idCategoria);
+  const getCategoryName = arrayAmountPerCategory.map((obj) => {
+    return _nombreCategoria(obj.idCategoria);
   });
-  console.log("metodo obtener nombre de categoria", getCategoryName);
-
-  const getCategoryNameUnique = Array.from(new Set(getCategoryName));
-  console.log("nombres sin repetir: ", getCategoryNameUnique)
 
   return (
     <div className="row my-3">
@@ -43,10 +49,9 @@ const EventsGraphsContainer = () => {
           <div className="card-body">
             <h5>Cantidades por categorías</h5>
             <div className="placeholder">
-              <PieChart
-                data={getAmountPerCategory}
-                categorias={getCategoryNameUnique}
-              />
+              <PieChart 
+                data={quantities} 
+                categorias={getCategoryName} />
             </div>
           </div>
         </div>
