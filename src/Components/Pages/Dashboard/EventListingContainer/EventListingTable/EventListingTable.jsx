@@ -12,12 +12,12 @@ const EventListingTable = () => {
     const events = useSelector(selectFilteredEvents) || [];
 
     const _nombreCategoria = (idCategoria) => {
-        const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
+        const unaCategoria = categorias.find((unaCat) => unaCat.id == idCategoria);
         return unaCategoria ? unaCategoria.tipo : 'Sin categoria';
     };
 
     const _imagenCategoria = (idCategoria) => {
-        const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
+        const unaCategoria = categorias.find((unaCat) => unaCat.id == idCategoria);
         return unaCategoria ? unaCategoria.imagen : '1';
     };
 
@@ -36,6 +36,7 @@ const EventListingTable = () => {
             <tbody>
                 {events.map(({id, idCategoria, detalle, fecha}) => (
                     <EventListingRow
+                        key={id}
                         id={id}
                         icono={_imagenCategoria(idCategoria)}
                         nombreCategoria={_nombreCategoria(idCategoria)}
