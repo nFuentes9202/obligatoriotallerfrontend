@@ -43,7 +43,7 @@ const EventsReportsContainer = () => {
 
   const _getIconPaniales = () =>{
 
-    return _getBiberones().length === 0 ? 'hand-thumbs-up-fill' : 'hand-thumbs-down-fill';
+    return _getPanialesCambiados().length === 0 ? 'hand-thumbs-up-fill' : 'hand-thumbs-down-fill';
 
   }
 
