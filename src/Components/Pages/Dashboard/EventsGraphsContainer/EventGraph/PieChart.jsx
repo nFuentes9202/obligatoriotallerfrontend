@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const PieChart = (data, categorias) => {
+const PieChart = ({data, categorias}) => {
   const [chartData, setChartData] = useState({
     series: data,
     options: {
