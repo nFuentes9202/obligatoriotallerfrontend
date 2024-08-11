@@ -9,6 +9,26 @@ const EventsGraphsContainer = () => {
   const events = useSelector(selectEvents) || [];
   const categorias = useSelector(selectCategorias) || [];
 
+  const countEventsByDate = (events) => {
+    
+    const conteo = {};
+    events.forEach((evento) => {
+      if (evento.idCategoria === 31) {
+        const fecha = evento.fecha.split(" ")[0]; // Obtener solo la fecha (AAAA-MM-DD)
+        if (!conteo[fecha]) {
+          conteo[fecha] = 0;
+        }
+        conteo[fecha] += 1;
+      }
+    });
+
+    return Object.keys(conteo).map((fecha) => ({
+      fecha,
+      cantComidas: conteo[fecha],
+    }));
+  };
+
+
   const getAmountPerCategory = events.reduce((contador, evento) => {
     const { idCategoria } = evento;
     contador[idCategoria] = (contador[idCategoria] || 0) + 1;
@@ -26,7 +46,6 @@ const EventsGraphsContainer = () => {
     return obj.cantidad;
   });
 
-
   const _nombreCategoria = (idCategoria) => {
     const unaCategoria = categorias.find((unaCat) => unaCat.id === idCategoria);
     return unaCategoria ? unaCategoria.tipo : "Sin categoria";
@@ -43,10 +62,10 @@ const EventsGraphsContainer = () => {
           <div className="card-body">
             <h5>Gráfico barras</h5>
             <div className="placeholder">
-                <LineChart
+              <LineChart
                 data={[8, 10, 9, 10, 11, 10, 9]}
-                labels={["Lun", "Mar", "Mier", "Juev" ,"Vier" ,"Sab" ,"Dom" ]}
-                />
+                labels={["Lun", "Mar", "Mier", "Juev", "Vier", "Sab", "Dom"]}
+              />
             </div>
           </div>
         </div>
@@ -56,9 +75,7 @@ const EventsGraphsContainer = () => {
           <div className="card-body">
             <h5>Cantidades por categorías</h5>
             <div className="placeholder">
-              <PieChart 
-                data={quantities} 
-                categorias={getCategoryName} />
+              <PieChart data={quantities} categorias={getCategoryName} />
             </div>
           </div>
         </div>
