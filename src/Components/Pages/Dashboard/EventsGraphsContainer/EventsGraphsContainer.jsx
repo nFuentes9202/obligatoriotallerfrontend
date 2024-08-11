@@ -25,6 +25,8 @@ const EventsGraphsContainer = () => {
   });
   console.log("metodo obtener nombre de categoria", getCategoryName);
 
+  const getCategoryNameUnique = Array.from(new Set(getCategoryName));
+  console.log("nombres sin repetir: ", getCategoryNameUnique)
 
   return (
     <div className="row my-3">
@@ -42,8 +44,8 @@ const EventsGraphsContainer = () => {
             <h5>Cantidades por categorías</h5>
             <div className="placeholder">
               <PieChart
-                data={[getAmountPerCategory]}
-                categorias={[getCategoryName]}
+                data={getAmountPerCategory}
+                categorias={getCategoryNameUnique}
               />
             </div>
           </div>
