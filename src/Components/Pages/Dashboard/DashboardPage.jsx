@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser, selectUserLogged } from "../../../app/slices/userSlice";
 import { loadInitialEvents } from "../../../app/slices/eventsSlice";
 import { loadInitialCategorias } from "../../../app/slices/categoriasSlice";
+import EventsGraphsContainer from "./EventsGraphsContainer/EventsGraphsContainer";
 
 
 const DashboardPage = () => {
@@ -70,6 +71,7 @@ const DashboardPage = () => {
             <AddEventContainer/>
             <EventListingContainer
             />
+            <EventsGraphsContainer/>
              {alertMessage !== "" ? <Alert message={alertMessage} classColor={alertClass}/> : ""}
         </div>
     );
