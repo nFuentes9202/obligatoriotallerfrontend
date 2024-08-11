@@ -37,7 +37,7 @@ const PieChart = ({data, categorias}) => {
 
   return (
     <div>
-      <div id="chart">
+      <div id="pieChart">
         <ReactApexChart
           options={chartData.options}
           series={chartData.series}

@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
 import { selectCategorias } from "../../../../app/slices/categoriasSlice";
-import PieChart from "./EventGraph/PieChart";
 import { selectEvents } from "../../../../app/slices/eventsSlice";
+
+import PieChart from "./EventGraph/PieChart";
+import LineChart from "./EventGraph/LineChart";
 
 const EventsGraphsContainer = () => {
   const events = useSelector(selectEvents) || [];
@@ -36,15 +38,20 @@ const EventsGraphsContainer = () => {
 
   return (
     <div className="row my-3">
-      <div className="col-md-8">
+      <div className="col-7">
         <div className="card">
           <div className="card-body">
             <h5>Gráfico barras</h5>
-            <div className="placeholder"></div>
+            <div className="placeholder">
+                <LineChart
+                data={[8, 10, 9, 10, 11, 10, 9]}
+                labels={["Lun", "Mar", "Mier", "Juev" ,"Vier" ,"Sab" ,"Dom" ]}
+                />
+            </div>
           </div>
         </div>
       </div>
-      <div className="col-md-4">
+      <div className="col-5">
         <div className="card">
           <div className="card-body">
             <h5>Cantidades por categorías</h5>
