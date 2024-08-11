@@ -9,7 +9,6 @@ const EventListingFilter = () => {
   
   const _onHandleChange = () => {
     dispatcher(onFilter(selectRef.current.value));
-    //onFilter(selectRef.current.value);
   };
 
   return (

@@ -43,10 +43,12 @@ const eventsSlice = createSlice({
             state.events = newEventList;
             state.filterEvents = newEventList;
         },
-        onAddTodo: (state, action) => {
+        onAddEvent: (state, action) => {
             const { payload } = action;
             state.events = [...state.events, payload];
+            console.log(state.events);
             state.filterEvents = state.events;
+            console.log(state.filterEvents);
         },
         onFilter: (state, action) => {
             const { payload } = action;
@@ -65,7 +67,7 @@ const eventsSlice = createSlice({
 
 });
 
-export const {loadInitialEvents, onDelete, onFilter} = eventsSlice.actions;
+export const {loadInitialEvents, onDelete, onFilter, onAddEvent} = eventsSlice.actions;
 
 export const selectEvents = (state) => state.eventsSlice.events;
 export const selectFilteredEvents = (state) => state.eventsSlice.filterEvents;
