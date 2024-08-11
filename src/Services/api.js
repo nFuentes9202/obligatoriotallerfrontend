@@ -44,7 +44,6 @@ const DeleteEventAPI = async (id, idUsuario, apiKey) => {
         );
         if (response.status === 200){
             const data = await response.json();
-            console.log(data.mensaje);
             //return data.mensaje;
         } else{
             return Promise.reject({

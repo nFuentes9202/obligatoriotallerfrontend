@@ -46,9 +46,8 @@ const eventsSlice = createSlice({
         onAddEvent: (state, action) => {
             const { payload } = action;
             state.events = [...state.events, payload];
-            console.log(state.events);
             state.filterEvents = state.events;
-            console.log(state.filterEvents);
+
         },
         onFilter: (state, action) => {
             const { payload } = action;

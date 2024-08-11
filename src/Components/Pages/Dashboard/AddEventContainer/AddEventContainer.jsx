@@ -6,6 +6,7 @@ import { selectCategorias } from "../../../../app/slices/categoriasSlice";
 import { selectUserLogged } from "../../../../app/slices/userSlice";
 import AddEventApiCall from "./AddEventApiCall";
 import { onAddEvent } from "../../../../app/slices/eventsSlice";
+import GifAlert from "../../../UI/GifAlert/GifAlert";
 
 const AddEventContainer = () => {
   const selectCategoriaRef = useRef();
@@ -14,6 +15,12 @@ const AddEventContainer = () => {
   const [btnState, setBtnDisabled] = useState(true);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertClass, setAlertClass] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+
+
+  const triggerAlert = () => {
+    setShowAlert(true);
+  };
 
   const categorias = useSelector(selectCategorias);
   const userLogged = useSelector(selectUserLogged);
@@ -40,7 +47,7 @@ const AddEventContainer = () => {
     selectCategoriaRef.current.value = 'default';
     inputFechaRef.current.value = formatDate(new Date());
     inputDetalleRef.current.value = '';
-
+    setBtnDisabled(true);
   }
 
   const _onAddEvent = async (e) => {
@@ -56,7 +63,6 @@ const AddEventContainer = () => {
         let detalle = inputDetalleRef.current.value;
         let fecha = new Date(inputFechaRef.current.value);
         let formattedDate = formatDate(fecha);
-        alert(fecha);
         const data = await AddEventApiCall(categoriaId, userId, detalle, formattedDate,apiKey);
 
         //onRegister(data);
@@ -68,6 +74,7 @@ const AddEventContainer = () => {
          fecha: formattedDate,
        }));
        resetearCampos();
+       triggerAlert();
         
       } catch (e) {
         
@@ -150,6 +157,13 @@ const AddEventContainer = () => {
             </div>
           </form>
           {alertMessage !== "" ? <Alert message={alertMessage} classColor={alertClass}/> : ""}
+          {showAlert && (
+            <GifAlert
+              gifUrl="https://i.gifer.com/2kXk.gif"
+              message="¡Mira que contento está el bebe!"
+              onClose={() => setShowAlert(false)}
+            />
+          )}
     </>
   );
 };
