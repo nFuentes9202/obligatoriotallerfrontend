@@ -4,15 +4,15 @@ import { selectEvents } from "../../../../app/slices/eventsSlice";
 
 import PieChart from "./EventGraph/PieChart";
 import LineChart from "./EventGraph/LineChart";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 const EventsGraphsContainer = () => {
   const events = useSelector(selectEvents) || [];
   const categorias = useSelector(selectCategorias) || [];
-  const [dataEventsByDate, setDataEventsByDate] = useState()
+  const [dataEventsByDate, setDataEventsByDate] = useState();
+  const [dataCantComidasPorDiaSem, setDataCantComidasPorDiaSem] = useState();
 
-  const countEventsByDate = (events) => {
-    
+  const _countEventsComidasByDate = () => {
     const conteo = {};
     events.forEach((evento) => {
       if (evento.idCategoria === 31) {
@@ -28,31 +28,97 @@ const EventsGraphsContainer = () => {
       fecha,
       cantComidas: conteo[fecha],
     }));
-  };  
+    
+  };
+
+  const diasSemana = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+  ];
+  const eventoComidasConDiaSemana = _countEventsComidasByDate().map((evento) => {
+    const fecha = new Date(evento.fecha);
+    //console.log("fecha", fecha);
+    const diaSemana = diasSemana[fecha.getDay()];
+    //console.log("Dia sem:",diaSemana);
+    return {
+      ...evento,
+      diaSemana: diaSemana,
+    };
+    
+  });
+/*
+  const _cantComidasPorDia = () => {
+    const diasSemana = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ];
+    const eventoComidasConDiaSemana = _countEventsComidasByDate().map((evento) => {
+      const fecha = new Date(evento.fecha);
+      //console.log("fecha", fecha);
+      const diaSemana = diasSemana[fecha.getDay()];
+      //console.log("Dia sem:",diaSemana);
+      return {
+        ...evento,
+        diaSemana: diaSemana,
+      };
+      
+    })
+  };
+*/
   
+
   useEffect(() => {
-    if(events.length > 0){
-      setDataEventsByDate(countEventsByDate(events));
+    if (events.length > 0) {
+      setDataEventsByDate(_countEventsComidasByDate(events));
+      setDataCantComidasPorDiaSem(eventoComidasConDiaSemana);
+      //cantComidasPorDia();
     }
   }, [events]);
 
+  console.log("--dataCantComidasPorDiaSem",dataCantComidasPorDiaSem);
+  console.log("dataEventsByDate", dataEventsByDate);
+  /*
+  //borrar
   const getDayOfWeek = () => {
-  
-    events.forEach(evento => {
+    events.forEach((evento) => {
       const fecha = new Date(evento.fecha);
-      const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const diasSemana = [
+        "Domingo",
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado",
+      ];
       const diaSemana = diasSemana[fecha.getDay()];
-      console.log(`Fecha: ${evento.fecha}, Día de la semana: ${diaSemana}, Comidas: ${evento.comidas}`);
-      console.log("diasem",diaSemana);
+      console.log(
+        `Fecha: ${evento.fecha}, Día de la semana: ${diaSemana}, Comidas: ${evento.comidas}`
+      );
+      console.log("diasem", diaSemana);
 
       return diasSemana;
     });
   };
-  //const arrayDiaCantComidas = dataEventsByDate.map(()) 
-  console.log("getDayOfWeek",getDayOfWeek);
-  getDayOfWeek();
-
-
+  //fin borrar
+*/
+  /*const crearArrayCantComidasXDia = Object.entries(getAmountPerCategory).map(
+    ([idCategoria, cantidad]) => ({
+      idCategoria: Number(idCategoria),
+      cantidad,
+    })
+  );*/
+  /////////////////////////
 
   const getAmountPerCategory = events.reduce((contador, evento) => {
     const { idCategoria } = evento;
@@ -88,8 +154,8 @@ const EventsGraphsContainer = () => {
             <h5>Gráfico barras</h5>
             <div className="placeholder">
               <LineChart
-                data = {[2, 3, 3, 7, 8, 9, 10]}
-                labels = {['Dom', 'Lun', 'Mar', 'Miér', 'Jue', 'Vier', 'Sáb']}
+                data={[2, 3, 3, 7, 8, 9, 10]}
+                labels={["Dom", "Lun", "Mar", "Miér", "Jue", "Vier", "Sáb"]}
               />
             </div>
           </div>
