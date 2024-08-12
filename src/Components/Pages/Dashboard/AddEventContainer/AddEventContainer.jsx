@@ -160,7 +160,7 @@ const AddEventContainer = () => {
           {showAlert && (
             <GifAlert
               gifUrl="https://i.gifer.com/2kXk.gif"
-              message="¡Mira que contento está el bebe!"
+              message="Se agregó correctamente ¡Mira que contento está el bebe!"
               onClose={() => setShowAlert(false)}
             />
           )}

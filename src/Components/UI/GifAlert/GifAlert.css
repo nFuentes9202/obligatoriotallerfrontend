@@ -1,0 +1,36 @@
+.gif-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .gif-alert-container {
+    width: 50%;
+    max-width: 500px;
+    height: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .gif-alert-gif {
+    width: 100%;
+    max-height: 200px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .gif-alert-message {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+  }  

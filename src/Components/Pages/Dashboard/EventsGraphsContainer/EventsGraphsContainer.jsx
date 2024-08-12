@@ -4,6 +4,7 @@ import { selectEvents } from "../../../../app/slices/eventsSlice";
 
 import PieChart from "./EventGraph/PieChart";
 import LineChart from "./EventGraph/LineChart";
+import FeedingTimer from "./FeedingTimer/FeedingTimer";
 import { useEffect, useState } from "react";
 
 const EventsGraphsContainer = () => {
@@ -89,9 +90,9 @@ const EventsGraphsContainer = () => {
   });
 
   return (
-    <div className="row my-3">
-      <div className="col-7">
-        <div className="card">
+    <div className="row my-3 g-2">
+      <div className="col-md-4 d-flex align-items-stretch">
+        <div className="card w-100">
           <div className="card-body">
             <h5>Gráfico barras</h5>
             <div className="placeholder">
@@ -105,12 +106,22 @@ const EventsGraphsContainer = () => {
           </div>
         </div>
       </div>
-      <div className="col-5">
-        <div className="card">
+      <div className="col-md-4 d-flex align-items-stretch">
+        <div className="card w-100">
           <div className="card-body">
             <h5>Cantidades por categorías</h5>
             <div className="placeholder">
               <PieChart data={quantities} categorias={getCategoryName} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="col-md-4 d-flex align-items-stretch">
+        <div className="card w-100">
+          <div className="card-body">
+            <h5>Tiempo restante para alimentar al bicho..</h5>
+            <div className="placeholder">
+              <FeedingTimer />
             </div>
           </div>
         </div>
