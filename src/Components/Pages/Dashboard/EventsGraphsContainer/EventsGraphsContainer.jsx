@@ -4,10 +4,12 @@ import { selectEvents } from "../../../../app/slices/eventsSlice";
 
 import PieChart from "./EventGraph/PieChart";
 import LineChart from "./EventGraph/LineChart";
+import { useEffect, useState} from "react";
 
 const EventsGraphsContainer = () => {
   const events = useSelector(selectEvents) || [];
   const categorias = useSelector(selectCategorias) || [];
+  const [dataEventsByDate, setDataEventsByDate] = useState()
 
   const countEventsByDate = (events) => {
     
@@ -26,7 +28,30 @@ const EventsGraphsContainer = () => {
       fecha,
       cantComidas: conteo[fecha],
     }));
+  };  
+  
+  useEffect(() => {
+    if(events.length > 0){
+      setDataEventsByDate(countEventsByDate(events));
+    }
+  }, [events]);
+
+  const getDayOfWeek = () => {
+  
+    events.forEach(evento => {
+      const fecha = new Date(evento.fecha);
+      const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const diaSemana = diasSemana[fecha.getDay()];
+      console.log(`Fecha: ${evento.fecha}, Día de la semana: ${diaSemana}, Comidas: ${evento.comidas}`);
+      console.log("diasem",diaSemana);
+
+      return diasSemana;
+    });
   };
+  //const arrayDiaCantComidas = dataEventsByDate.map(()) 
+  console.log("getDayOfWeek",getDayOfWeek);
+  getDayOfWeek();
+
 
 
   const getAmountPerCategory = events.reduce((contador, evento) => {
@@ -63,8 +88,8 @@ const EventsGraphsContainer = () => {
             <h5>Gráfico barras</h5>
             <div className="placeholder">
               <LineChart
-                data={[8, 10, 9, 10, 11, 10, 9]}
-                labels={["Lun", "Mar", "Mier", "Juev", "Vier", "Sab", "Dom"]}
+                data = {[2, 3, 3, 7, 8, 9, 10]}
+                labels = {['Dom', 'Lun', 'Mar', 'Miér', 'Jue', 'Vier', 'Sáb']}
               />
             </div>
           </div>
