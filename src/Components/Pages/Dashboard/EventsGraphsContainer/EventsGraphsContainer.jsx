@@ -10,58 +10,58 @@ import { useEffect, useState } from "react";
 const EventsGraphsContainer = () => {
   const events = useSelector(selectEvents) || [];
   const categorias = useSelector(selectCategorias) || [];
-  const [dataCantComidasPorDiaSem, setDataCantComidasPorDiaSem] = useState();
+  const [cantComidasPorDia, setCantComidasPorDia] = useState([]);
+  const [diasSemana, setDiasSemana] = useState([]);
 
-  const _countEventsComidasByDate = () => {
-    const conteo = {};
-    events.forEach((evento) => {
-      if (evento.idCategoria === 31) {
-        const fecha = evento.fecha.split(" ")[0];
-        if (!conteo[fecha]) {
-          conteo[fecha] = 0;
-        }
-        conteo[fecha] += 1;
-      }
-    });
-
-    return Object.keys(conteo).map((fecha) => ({
-      fecha,
-      cantComidas: conteo[fecha],
-    }));
+  const _getDiasAnteriores = () => {
+    const diasDeLaSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const hoy = new Date();
+    const diasAnteriores = [];
+  
+    for (let i = 7; i > 0; i--) {
+      const dia = new Date(hoy);
+      dia.setDate(hoy.getDate() - i);
+      diasAnteriores.push(dia);
+    }
+  
+    return diasAnteriores.map(dia => diasDeLaSemana[dia.getDay()]);
   };
 
-  const _cantComidasPorDia = () => {
-    const diasSemana = [
-      "Domingo",
-      "Lunes",
-      "Martes",
-      "Miércoles",
-      "Jueves",
-      "Viernes",
-      "Sábado",
-    ];
-    const eventoComidasConDiaSemana = _countEventsComidasByDate().map(
-      (evento) => {
-        const fecha = new Date(evento.fecha);
-        const diaSemana = diasSemana[fecha.getDay()];
-        return {
-          ...evento,
-          diaSemana: diaSemana,
-        };
+  const _getComidasPorDiaYSemana = () => {
+    const hoy = new Date();
+    const lastWeekDate = new Date(hoy);
+    lastWeekDate.setDate(hoy.getDate() - 7);
+
+    hoy.setHours(0, 0, 0, 0);
+    lastWeekDate.setHours(0, 0, 0, 0);
+
+    const conteosPorDia = new Array(7).fill(0);
+    const diasDeLaSemana = _getDiasAnteriores();
+    
+    events.forEach(event => {
+      const fechaEvento = new Date(event.fecha);
+
+      fechaEvento.setHours(0, 0, 0, 0);
+
+      if (event.idCategoria == 31 && fechaEvento >= lastWeekDate && fechaEvento < hoy) {
+        const diaIndex = (fechaEvento.getDay() + 6) % 7;
+        conteosPorDia[diaIndex]++;
       }
-    );
-    return eventoComidasConDiaSemana;
+    });
+    
+    return {
+      diasDeLaSemana: diasDeLaSemana,
+      conteosPorDia: conteosPorDia
+    };
   };
 
   useEffect(() => {
-    if (events.length > 0) {
-      setDataCantComidasPorDiaSem(_cantComidasPorDia());
-    }
+      const { diasDeLaSemana, conteosPorDia } = _getComidasPorDiaYSemana();
+      setCantComidasPorDia(conteosPorDia);
+      setDiasSemana(diasDeLaSemana);
+      console.log(conteosPorDia);
+      console.log(diasDeLaSemana);
   }, [events]);
-  console.log("dataCantComidasPorDiaSem", dataCantComidasPorDiaSem);
-  
-
-
 
   const getAmountPerCategory = events.reduce((contador, evento) => {
     const { idCategoria } = evento;
@@ -97,10 +97,10 @@ const EventsGraphsContainer = () => {
             <h5>Gráfico barras</h5>
             <div className="placeholder">
               <LineChart
-                data={[2, 3, 3, 7, 8, 9, 10]}
-                labels={["Dom", "Lun", "Mar", "Miér", "Jue", "Vier", "Sáb"]}
-                /*data = {[dataCantComidasPorDiaSem.cantComidas]}
-                labels = {[dataCantComidasPorDiaSem.diaSemana]}*/
+                //data={[2, 3, 3, 7, 8, 9, 10]}
+                //labels={["Dom", "Lun", "Mar", "Miér", "Jue", "Vier", "Sáb"]}
+                data = {cantComidasPorDia}
+                labels={diasSemana}
               />
             </div>
           </div>
